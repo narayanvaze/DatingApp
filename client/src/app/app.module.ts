@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,9 @@ import { MessagesComponent } from './messages/messages.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './_modules/shared.module';
+import { TestErrorsComponent } from './_errors/test-errors/test-errors.component';
+import { ErrorInterceptor } from './_intercepts/error.interceptor';
+import { NotFoundComponent } from './_errors/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { SharedModule } from './_modules/shared.module';
     MemberListComponent,
     MemberDetailComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    TestErrorsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,9 @@ import { SharedModule } from './_modules/shared.module';
     NgbModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true} 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
