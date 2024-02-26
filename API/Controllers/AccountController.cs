@@ -15,6 +15,8 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
+
+        // 1. How does .NET knows which implementation of ITokenService is to injected?
         public AccountController(DataContext context, ITokenService tokenService)
         {
             _context = context;
