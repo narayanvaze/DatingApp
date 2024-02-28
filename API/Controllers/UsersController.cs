@@ -23,7 +23,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public  async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
             // Go to definition of ActionResult -- what type is TValue?? Object??
@@ -37,8 +37,7 @@ namespace API.Controllers
         [HttpGet("{username}")]
         public  async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(username);
-            return _mapper.Map<MemberDto>(user);
+            return await _userRepository.GetMemberAsync(username);
         }
     }
 }

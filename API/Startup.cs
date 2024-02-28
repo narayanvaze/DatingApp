@@ -38,12 +38,33 @@ namespace API
         {
             services.AddApplicationServices(_config);   
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo {
+                Title = "JWTToken_Auth_API", Version = "v1"
             });
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme() {
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+            });
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+            {
+                new OpenApiSecurityScheme {
+                    Reference = new OpenApiReference {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                }
+            },
+                new string[] {}
+            }
+            });
+        });
+
             services.AddCors();
-           services.AddIdentityServiceCollection(_config);
+            services.AddIdentityServiceCollection(_config);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,12 +87,19 @@ namespace API
             WithOrigins("https://localhost:4200"));
 
             app.UseAuthentication();
+            app.UseRouting();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();  
+            app.UseSwaggerUI(c => {  
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");  
+    });
         }
     }
 }
