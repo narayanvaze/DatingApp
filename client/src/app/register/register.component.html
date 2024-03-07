@@ -1,14 +1,34 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">Sign Up</h2>
+    <hr>
     <div class="form-group mb-3">
-        <input type="text" class="form-control" [(ngModel)]="model.username" placeholder="Username" name="username">
+        <label class="control-label" style="margin-right: 10px;">I am a: </label>
+        <label class="radio-inline" style="margin-left: 5px;">
+            <input type="radio" value="male" formControlName="gender">Male
+        </label>
+        <label class="radio-inline" style="margin-left: 5px;"> 
+            <input type="radio" value="female" formControlName="gender" class="ml-3">Female
+        </label>   
     </div>
-   
-    <div class="form-group mb-3">
-        <input type="password" class="form-control" [(ngModel)]="model.password" placeholder="Password" name="password">
+    <div class="form-group text-center">
+    <app-text-input [formControl]='registerForm.controls["username"]' 
+    [label]='"Username"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["knownAs"]' 
+    [label]='"Known As"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["dateOfBirth"]' 
+    [label]='"Date of Birth"' [type]="'Date'"></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["city"]' 
+    [label]='"City"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["password"]' 
+    [label]='"Password"' type='"password"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["confirmPassword"]' 
+    [label]='"Confirm Password"' [type]='"password"'></app-text-input>
     </div>
     <div class="form-group text-center">
         <button type="submit" class="btn btn-success mr-2">Register</button>
         <button type="button" class="btn btn-default mx-2" (click)="cancel()">Cancel</button>
     </div>
 </form>
+
+<p>Form Value: {{registerForm.value | json}}</p>
+<p>Form Status: {{registerForm.status | json}}</p>
