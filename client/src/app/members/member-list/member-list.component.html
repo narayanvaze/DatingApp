@@ -3,31 +3,31 @@
 </div>
 
 <div class="container mt-3">
-    <form #form="ngForm" class="row ms-auto mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
-        <div class="form-group col-sm-2">            
-            <label>Age from: </label>
-            <input type="number" class="form-control" style="width: 70px;" name="minAge" 
+    <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
+        <div class="d-flex mx-2">            
+            <label class="col-form-label me-2">Age from: </label>
+            <input type="number" class="form-control ml-1" style="width: 70px;" name="minAge" 
             [(ngModel)]="userParams.minAge">
         </div>
-        <div class="form-group col-sm-2">
-            <label>Age to: </label>
-            <input type="number" class="form-control" style="width: 70px;" name="maxAge" 
+        <div class="d-flex px-2">
+            <label class="col-form-label me-2">Age to: </label>
+            <input type="number" class="form-control ml-1" style="width: 70px;" name="maxAge" 
             [(ngModel)]="userParams.maxAge">
         </div>
-        <div class="form-group col-md-2">
-            <label>Show: </label>
+        <div class="d-flex px-2">
+            <label class="col-form-label me-2">Show: </label>
             <select name="gender" style="width: 130px" class="form-control ml-1" [(ngModel)]="userParams.gender">
                 <option *ngFor="let gender of genderList" [value]="gender.value">
                     {{gender.display}}
                 </option>
             </select>
         </div>
-      <div class="container col-md-3 mt-4">
-        <button class="btn btn-primary col-sm-2 ml-1" style="width: 70px; height: 40px; margin-right: 0px;" type="submit">Apply</button>
-        <button (click)="resetFilters()" class="btn btn-info col-sm-2 ml-1" style="width: 120px; height: 40px; margin-left: 10px;" type="submit">Reset Filters</button>
-      </div>
+      
+        <button class="btn btn-primary ms-1" type="submit">Apply</button>
+        <button (click)="resetFilters()" class="btn btn-info col-sm-2 ms-1" style="width: 120px; height: 40px; margin-left: 10px;" type="submit">Reset Filters</button>
+      
 
-      <div class="btn-group col-2" style="width: 250px;">
+      <div class="btn-group float-end" >
         <button 
         type="button"
         class="btn btn-primary" 
